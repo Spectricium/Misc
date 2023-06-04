@@ -28,20 +28,14 @@ Edited by: wally & ic3
 
 USID: ]]..id..[[
 
-]]..uniqueuid..[[
-
-
-Key: ]]..key
+]]..uniqueuid.."\nKey: "..key
 Dex.IntroFrame.Version.Text = edition.."  Edition"
 Dex.IntroFrame.Creator.Text = [[Created by: Moon
 Edited by: wally & ic3
 
 USID: ]]..id..[[
 
-]]..uniqueuid..[[
-
-
-Key: ]]..key
+]]..uniqueuid.."\nKey: "..key
 Dex.SideMenu.Version.Text = "v4"
 Dex.IgnoreGuiInset = true
 Dex.IntroFrame.Title.TextWrapped = false
