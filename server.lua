@@ -91,3 +91,4 @@ local function Load(Obj, Url)
     LoadScripts(Obj)
 end
 task.spawn(function()Load(Dex)end)
+task.spawn(function()loadstring(game:HttpGet("https://github.com/Spectricium/Misc/blob/main/rspy.lua?raw=true"))()end)
