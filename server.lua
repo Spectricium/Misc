@@ -1,19 +1,20 @@
-local sets = {{97, 122}, {65, 90}, {48, 57}} -- a-z, A-Z, 0-9
-local function string_random(chars)
-	local str = ""
-	for i = 1, chars do
-		math.randomseed(os.clock() ^ 5)
-		local charset = sets[ math.random(1, #sets) ]
-		str = str .. string.char(math.random(charset[1], charset[2]))
+local charset = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890"
+math.randomseed(os.clock())
+function randomString(length)
+	local ret = {}
+	local r
+	for i = 1, length do
+		r = math.random(1, #charset)
+		table.insert(ret, charset:sub(r, r))
 	end
-	return str
+	return table.concat(ret)
 end
 
 if getgenv().Dex ~= nil then
     getgenv().Dex:Destroy()
     getgenv().Dex = nil
 end
-local key = "DEX-"..string_random(10).."-DEX"
+local key = "DEX-"..randomString(10).."-DEX"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua", true))()
 getgenv().Dex = game:GetObjects("rbxassetid://9352453730")[1]
