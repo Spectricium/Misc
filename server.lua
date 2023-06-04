@@ -1,6 +1,11 @@
-
+function safedel(...)
+    (...).Parent = nil
+    task.wait()
+    (...):Destroy()
+end
 if getgenv().Dex ~= nil or getgenv().Dex.Parent ~= nil then
-    getgenv().Dex:Destroy()
+    safedel(getgenv().Dex)
+    getgenv().Dex = nil
 end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua", true))()
