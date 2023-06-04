@@ -1,7 +1,9 @@
+local charset = {}
+for i=97,122 do table.insert(charset,string.char(i))
 function RandomVariable(length)
 	local res = ""
 	for i = 1, length do
-		res = res .. string.char(math.random(97, 122))
+		res = res .. charset[math.random(1,#charset)]
 	end
 	return res
 end
