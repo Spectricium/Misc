@@ -16,7 +16,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scrip
 getgenv().Dex = game:GetObjects("rbxassetid://9352453730")[1]
 local edition = "Synapse"
 local id = game.Players.LocalPlayer:GetDebugId()
-local uniqueuid = game:GetService("HttpService"):GenerateGUID(true)
+--local uniqueuid = game:GetService("HttpService"):GenerateGUID(true)
+local uniqueuid = "{}"
 uniqueuid = string.gsub(uniqueuid,"}","")
 uniqueuid = string.gsub(uniqueuid,"{","")
 local namer = ("%s idEnc:%s"):format(id,uniqueuid)
