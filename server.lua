@@ -1,5 +1,5 @@
 if getgenv().Dex ~= nil or getgenv().Dex.Parent ~= nil then
-    safedel(getgenv().Dex)
+    getgenv().Dex:Destroy()
     getgenv().Dex = nil
 end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
