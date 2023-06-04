@@ -1,7 +1,16 @@
+function RandomVariable(length)
+	local res = ""
+	for i = 1, length do
+		res = res .. string.char(math.random(97, 122))
+	end
+	return res
+end
+
 if getgenv().Dex ~= nil then
     getgenv().Dex:Destroy()
     getgenv().Dex = nil
 end
+local key = RandomVariable(10)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua", true))()
 getgenv().Dex = game:GetObjects("rbxassetid://9352453730")[1]
@@ -19,14 +28,16 @@ Edited by: wally & ic3
 
 USID: ]]..id..[[
 
-]]..uniqueuid
+]]..uniqueuid..[[
+Key: ]]..key
 Dex.IntroFrame.Version.Text = edition.."  Edition"
 Dex.IntroFrame.Creator.Text = [[Created by: Moon
 Edited by: wally & ic3
 
 USID: ]]..id..[[
 
-]]..uniqueuid
+]]..uniqueuid..[[
+Key: ]]..key
 Dex.SideMenu.Version.Text = "v4"
 Dex.IgnoreGuiInset = true
 Dex.IntroFrame.Title.TextWrapped = false
