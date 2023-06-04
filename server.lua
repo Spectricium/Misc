@@ -12,7 +12,7 @@ if getgenv().Dex ~= nil then
     getgenv().Dex:Destroy()
     getgenv().Dex = nil
 end
-local key = randomString(10)
+local key = "DEX-"..randomString(10).."-DEX"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua", true))()
 getgenv().Dex = game:GetObjects("rbxassetid://9352453730")[1]
