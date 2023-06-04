@@ -1,7 +1,7 @@
-function safedel(...)
-    (...).Parent = nil
+function safedel(obj)
+    obj.Parent = nil
     task.wait()
-    (...):Destroy()
+    obj:Destroy()
 end
 if getgenv().Dex ~= nil or getgenv().Dex.Parent ~= nil then
     safedel(getgenv().Dex)
