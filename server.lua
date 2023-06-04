@@ -1,4 +1,4 @@
-if getgenv().Dex ~= nil or getgenv().Dex.Parent ~= nil then
+if getgenv().Dex ~= nil then
     getgenv().Dex:Destroy()
     getgenv().Dex = nil
 end
