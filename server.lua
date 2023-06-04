@@ -1,12 +1,11 @@
-local charset = {}  do -- [0-9a-zA-Z]
-    for c = 48, 57  do table.insert(charset, string.char(c)) end
-    for c = 97, 122 do table.insert(charset, string.char(c)) end
-end
+local charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
-local function randomString(length)
-    if not length or length <= 0 then return '' end
-    math.randomseed(os.clock()^5)
-    return randomString(length - 1) .. charset[math.random(1, #charset)].."-"
+function randomString(length)
+  if length > 0 then
+    return randomString(length - 1) .. charset:sub(math.random(1, #charset), 1)
+  else
+    return ""
+  end
 end
 
 if getgenv().Dex ~= nil then
