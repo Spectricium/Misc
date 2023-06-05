@@ -1,95 +1,58 @@
-local charset = {}  do -- [0-9a-zA-Z]
-    for c = 48, 57  do table.insert(charset, string.char(c)) end
-    for c = 65, 90  do table.insert(charset, string.char(c)) end
-    for c = 97, 122 do table.insert(charset, string.char(c)) end
+local rng = Random.new()
+
+local charset = {}
+for i = 48,  57 do table.insert(charset, string.char(i)) end
+for i = 65,  90 do table.insert(charset, string.char(i)) end
+for i = 97, 122 do table.insert(charset, string.char(i)) end
+local function RandomCharacters(length)
+  if length > 0 then
+    return RandomCharacters(length - 1) .. charset[rng:NextInteger(1, #charset)]
+  else
+    return ""
+  end
 end
 
-local function randomString(length)
-    if not length or length <= 0 then return '' end
-    math.randomseed(os.clock()^5)
-    return randomString(length - 1) .. charset[math.random(1, #charset)]
-end
-
-if getgenv().Dex ~= nil then
-    getgenv().Dex:Destroy()
-    getgenv().Dex = nil
-end
-local key = RandomVariable(10)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua", true))()
-getgenv().Dex = game:GetObjects("rbxassetid://9352453730")[1]
-local edition = "Synapse"
-local id = game.Players.LocalPlayer:GetDebugId()
---local uniqueuid = game:GetService("HttpService"):GenerateGUID(true)
-local uniqueuid = "{}"
-uniqueuid = string.gsub(uniqueuid,"}","")
-uniqueuid = string.gsub(uniqueuid,"{","")
-local namer = ("%s idEnc:%s"):format(id,uniqueuid)
-Dex.Name = namer
-Dex.Parent = cloneref(game:GetService("CoreGui"))
-Dex.About.Version.Text = edition.."  Edition"
-Dex.About.Creator.Text = [[Created by: Moon
-Edited by: wally & ic3
-
-USID: ]]..id..[[
-
-]]..uniqueuid.."\nKey: "..key
-Dex.IntroFrame.Version.Text = edition.."  Edition"
-Dex.IntroFrame.Creator.Text = [[Created by: Moon
-Edited by: wally & ic3
-
-USID: ]]..id..[[
-
-]]..uniqueuid.."\nKey: "..key
-Dex.SideMenu.Version.Text = "v4"
-Dex.IgnoreGuiInset = true
-Dex.IntroFrame.Title.TextWrapped = false
-for _,v in pairs(Dex:GetDescendants()) do
-	task.spawn(function()
-		if v.Name == "Title" and v.Parent.Name ~= "SideMenu" then
-			v.Text = [[Dex | Beta v2]]
-		end
-	end)
-end
-for _,v in pairs(Dex:GetChildren()) do
-	task.spawn(function()
-		if v.Name ~= "IntroFrame" and v.Name ~= "ScriptEditor" and v.Name ~= "TableCaution" and v.Name ~= "CallRemote" and v.Name ~= "Caution" and v.Name ~= "Confirmation" and v.Name ~= "SideMenu" and v.ClassName == "Frame" then
-			v.BackgroundTransparency = 0.1
-		end
-	end)
-end
-
+local Dex = game:GetObjects("rbxassetid://9553291002")[1]
+syn.protect_gui(Dex)
+Dex.Name = RandomCharacters(rng:NextInteger(5, 20))
+Dex.Parent = game:GetService("CoreGui")
+    
 local function Load(Obj, Url)
-    local function GiveOwnGlobals(Func, Script)
-        local Fenv = {}
-        local RealFenv = {script = Script}
-        local FenvMt = {}
-        function FenvMt:__index(b)
-            if RealFenv[b] == nil then
-                return getfenv()[b]
-            else
-                return RealFenv[b]
-            end
-        end
-        function FenvMt:__newindex(b, c)
-            if RealFenv[b] == nil then
-                getfenv()[b] = c
-            else
-                RealFenv[b] = c
-            end
-        end
-        setmetatable(Fenv, FenvMt)
-        setfenv(Func, Fenv)
-        return Func
-    end
-    local function LoadScripts(Script)
-        if Script.ClassName == "Script" or Script.ClassName == "LocalScript" then
-            task.spawn(GiveOwnGlobals(loadstring(Script.Source, "=" .. Script:GetFullName()), Script))
-        end
-        for _,v in ipairs(Script:GetChildren()) do
-            LoadScripts(v)
+local function GiveOwnGlobals(Func, Script)
+    local Fenv = {}
+    local RealFenv = {script = Script}
+    local FenvMt = {}
+    FenvMt.__index = function(a,b)
+        if RealFenv == nil then
+            return getfenv()
+        else
+            return RealFenv
         end
     end
-    LoadScripts(Obj)
+    FenvMt.__newindex = function(a, b, c)
+        if RealFenv == nil then
+            getfenv() = c
+        else
+            RealFenv = c
+        end
+    end
+    setmetatable(Fenv, FenvMt)
+    setfenv(Func, Fenv)
+    return Func
 end
-task.spawn(function()Load(Dex)end)
+
+local function LoadScripts(Script)
+    if Script.ClassName == "Script" or Script.ClassName == "LocalScript" then
+        spawn(function()
+            GiveOwnGlobals(loadstring(Script.Source, "=" .. Script:GetFullName()), Script)()
+        end)
+    end
+    for i,v in pairs(Script:GetChildren()) do
+        LoadScripts(v)
+    end
+end
+
+LoadScripts(Obj)
+end
+
+Load(Dex)
